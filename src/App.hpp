@@ -15,9 +15,9 @@
 /// @brief
 class App final {
 public:
-  explicit App(std::unique_ptr<IFrameSource> frameSource,
-               std::unique_ptr<IFrameSegmenter> segmenter,
-               std::unique_ptr<IFrameRender> render)
+  App(std::unique_ptr<IFrameSource> frameSource,
+      std::unique_ptr<IFrameSegmenter> segmenter,
+      std::unique_ptr<IFrameRender> render)
       : frameSource_(std::move(frameSource)),
         segmenter_(std::move(segmenter)),
         render_(std::move(render)) {}
