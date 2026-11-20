@@ -15,7 +15,9 @@
 /// @param argv
 /// @return
 int main(int argc, char **argv) {
-  auto inference = std::make_unique<OnnxModelInference>("../models/yolo26s-seg.pt");
-  App app(std::move(inference));
+  OnnxEnvironment env{};
+  const char *modelPath = "../models/yolo26s-seg.pt";
+  auto inf = std::make_unique<OnnxModelInference>(env, modelPath);
+  App app(std::move(inf));
   return app.exec();
 }
