@@ -4,6 +4,10 @@ project(DepthEstimation_App VERSION 0.0.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(ONNXRUNTIME_ROOT "${CMAKE_SOURCE_DIR}/thirdParty/onnxruntime-linux-x64-1.30.0")
+
+find_package(OpenCV 4 REQUIRED)
+
 file(
   GLOB_RECURSE
   SRC_FILES
@@ -18,8 +22,6 @@ file(
 
 add_executable(${PROJECT_NAME} ${SRC_FILES} ${ROOT_FILES})
 
-set(ONNXRUNTIME_ROOT "${CMAKE_SOURCE_DIR}/thirdParty/onnxruntime-linux-x64-1.30.0")
-
 target_include_directories(
   ${PROJECT_NAME} PRIVATE
   "${CMAKE_SOURCE_DIR}"
@@ -31,4 +33,8 @@ target_include_directories(
 
 target_link_directories(${PROJECT_NAME} PRIVATE "${ONNXRUNTIME_ROOT}/lib")
 
-target_link_libraries(${PROJECT_NAME} PRIVATE onnxruntime)
+target_link_libraries(
+  ${PROJECT_NAME} PRIVATE
+  ${OpenCV_LIBS}
+  onnxruntime
+)

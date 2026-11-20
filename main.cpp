@@ -6,7 +6,7 @@
 
 //
 
-#include "ImageSegmenter.hpp"
+#include "FrameSegmenter.hpp"
 
 //
 
@@ -16,11 +16,13 @@
 /// @return
 int main(int argc, char **argv) {
   const char *modelPath = "../models/yolo26s-seg.pt";
+  const char *framePath = "../temp/.";
   OnnxEnvironment env{};
 
   auto inf = std::make_unique<OnnxModelInference>(env, modelPath);
-  auto seg = std::make_unique<ImageSegmenter>(std::move(inf));
+  auto fsr = std::make_unique<FrameSource>(framePath);
+  auto seg = std::make_unique<FrameSegmenter>(std::move(inf));
 
-  App app(std::move(seg));
+  App app(std::move(fsr), std::move(seg));
   return app.exec();
 }

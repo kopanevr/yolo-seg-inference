@@ -40,8 +40,7 @@ private:
 class OnnxModelInference final : public IModelInference {
 public:
   explicit OnnxModelInference(OnnxEnvironment &env, const ORTCHAR_T *modelPath)
-      : memoryInfo_(
-            Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault)) {
+      : memoryInfo_(Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault)) {
     Ort::SessionOptions opts{};
     session_ = std::make_unique<Ort::Session>(env.get(), modelPath, opts);
     cacheNodeNames();
