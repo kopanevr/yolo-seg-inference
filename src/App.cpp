@@ -21,8 +21,8 @@ int App::exec() {
   }
   cv::Mat frame{};
   if (frameSource_->getFrame(frame)) {
-    segmenter_->segment(frame);
-    render_->render(frame);
+    auto mask = segmenter_->segment(frame);
+    render_->render(frame, mask);
     return EXIT_SUCCESS;
   }
   return EXIT_FAILURE;
