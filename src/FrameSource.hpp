@@ -12,7 +12,7 @@
 
 class IFrameSource {
 public:
-  virtual ~IFrameSource() = default;
+  virtual ~IFrameSource() = default ;
 
   virtual bool getFrame(cv::Mat &frame) const = 0;
 };

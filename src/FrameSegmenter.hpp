@@ -20,7 +20,7 @@ class IFrameSegmenter {
 public:
   virtual ~IFrameSegmenter() = default;
 
-  virtual int segment(const cv::Mat &frame) = 0;
+  virtual std::vector<float> segment(const cv::Mat &frame) = 0;
 };
 
 /// @brief
@@ -32,12 +32,12 @@ public:
   /// @brief
   /// @param frame
   /// @return
-  int segment(const cv::Mat &frame) override {
+  std::vector<float> segment(const cv::Mat &frame) override {
     std::vector<float> tensor = preprocessImage(frame);
     std::vector<int64_t> shape = {1, 3, 640, 640};
     auto logits = model_->predict(tensor, shape);
     //
-    return 0;
+    return logits;
   }
 
 private:
