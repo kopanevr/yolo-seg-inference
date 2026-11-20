@@ -12,7 +12,7 @@
 
 /// @brief
 int App::exec() {
-  if (!modelInference_) {
+  if (!segmenter_) {
     return EXIT_FAILURE;
   }
   while (true) {

@@ -6,15 +6,15 @@
 
 //
 
-#include "ModelInference.hpp"
+#include "ImageSegmenter.hpp"
 
 //
 
 /// @brief
 class App final {
 public:
-  explicit App(std::unique_ptr<IModelInference> inference)
-      : modelInference_(std::move(inference)) {}
+  explicit App(std::unique_ptr<IImageSegmenter> segmenter)
+      : segmenter_(std::move(segmenter)) {}
   ~App() = default;
 
   App(const App &) = delete;
@@ -23,5 +23,5 @@ public:
   int exec();
 
 private:
-  std::unique_ptr<IModelInference> modelInference_;
+  std::unique_ptr<IImageSegmenter> segmenter_;
 };
