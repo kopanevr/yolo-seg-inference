@@ -44,6 +44,7 @@ public:
             Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault)) {
     Ort::SessionOptions opts{};
     session_ = std::make_unique<Ort::Session>(env.get(), modelPath, opts);
+    cacheNodeNames();
   }
 
   std::vector<float> predict(std::vector<float> &inputData,
@@ -65,14 +66,35 @@ public:
       outputNamesPtr_.size()
     );
 
-    return {};
+    const float *rawOutput = outputTensors.front().GetTensorData<float>();
+    const size_t outputSize = outputTensors.front().GetSparseTensorValuesTypeAndShapeInfo().GetElementCount();
+
+    return {rawOutput, rawOutput + outputSize};
   }
 
 private:
 
 private:
   void cacheNodeNames() {
+    Ort::AllocatorWithDefaultOptions allocator{};
+
     const size_t numInputs = session_->GetInputCount();
+    for (size_t i = 0; i < numInputs; i++) {
+      auto name = session_->GetInputNameAllocated(i, allocator);
+      inputNames_.emplace_back(name.get());
+    }
+    for (const auto &name : inputNames_) {
+      inputNamesPtr_.push_back(name.data());
+    }
+
+    const size_t numOutputs = session_->GetOutputCount();
+    for (size_t i = 0; i < numOutputs; i++) {
+      auto name = session_->GetOutputNameAllocated(i, allocator);
+      outputNames_.emplace_back(name.get());
+    }
+    for (const auto &name : outputNames_) {
+      outputNamesPtr_.push_back(name.data());
+    }
   }
 
   std::unique_ptr<Ort::Session> session_;
