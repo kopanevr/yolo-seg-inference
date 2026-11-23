@@ -18,7 +18,7 @@
 /// @param argv
 /// @return
 int main(int argc, char **argv) {
-  const char *modelPath = "../models/yolo26s-seg.pt";
+  const char *modelPath = "../models/yolo26s-seg.onnx";
   const char *framePath = "../temp/image.jpg";
   OnnxEnvironment env{};
 

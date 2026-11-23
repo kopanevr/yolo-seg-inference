@@ -66,7 +66,7 @@ public:
     );
 
     const float *rawOutput = outputTensors.front().GetTensorData<float>();
-    const size_t outputSize = outputTensors.front().GetSparseTensorValuesTypeAndShapeInfo().GetElementCount();
+    const size_t outputSize = outputTensors.front().GetTensorTypeAndShapeInfo().GetElementCount();
 
     return {rawOutput, rawOutput + outputSize};
   }
