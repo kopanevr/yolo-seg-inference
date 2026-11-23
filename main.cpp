@@ -19,7 +19,7 @@
 /// @return
 int main(int argc, char **argv) {
   const char *modelPath = "../models/yolo26s-seg.pt";
-  const char *framePath = "../temp/.";
+  const char *framePath = "../temp/image.jpg";
   OnnxEnvironment env{};
 
   auto inf = std::make_unique<OnnxModelInference>(env, modelPath);
