@@ -33,7 +33,7 @@ public:
   /// @param frame
   /// @return
   std::vector<float> estimate(const cv::Mat &frame) override {
-    std::vector<float> tensor = preprocessImage(frame);
+    std::vector<float> tensor = preprocessFrame(frame);
     std::vector<int64_t> shape = {1, 3, 768, 768};
     auto logits = model_->predict(tensor, shape);
     //
@@ -44,7 +44,7 @@ private:
   /// @brief
   /// @param frame
   /// @return
-  std::vector<float> preprocessImage(const cv::Mat &frame) {
+  std::vector<float> preprocessFrame(const cv::Mat &frame) {
     cv::Mat blob = cv::dnn::blobFromImage(
       frame,
       1.0,

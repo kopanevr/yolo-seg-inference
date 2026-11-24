@@ -22,7 +22,7 @@ int App::exec() {
   cv::Mat frame{};
   if (frameSource_->getFrame(frame)) {
     auto depth = estimator_->estimate(frame);
-    render_->drawDepth(frame, depth);
+    render_->drawDepth(depth);
     return EXIT_SUCCESS;
   }
   return EXIT_FAILURE;
