@@ -1,6 +1,13 @@
 # ONNXRuntime_App
 
-YOLO26s-seg Inference with ONNX Runtime Example.
+YOLO26s-depth Inference with ONNX Runtime Example.
 
 ```bash
 ```
+
+|  |  |
+| :--: | :--: |
+| **Исходное изображение** |**-** |
+| ![1](/temp/image.jpg) | ![2]() |
+| **_** |**-** |
+| ![3]() | ![4]() |

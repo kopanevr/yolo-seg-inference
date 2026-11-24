@@ -16,25 +16,25 @@
 //
 
 /// @brief
-class IFrameSegmenter {
+class IFrameDepthEstimator {
 public:
-  virtual ~IFrameSegmenter() = default;
+  virtual ~IFrameDepthEstimator() = default;
 
-  virtual std::vector<float> segment(const cv::Mat &frame) = 0;
+  virtual std::vector<float> estimate(const cv::Mat &frame) = 0;
 };
 
 /// @brief
-class FrameSegmenter final : public IFrameSegmenter {
+class FrameDepthEstimator final : public IFrameDepthEstimator {
 public:
-  explicit FrameSegmenter(std::unique_ptr<IModelInference> model)
+  explicit FrameDepthEstimator(std::unique_ptr<IModelInference> model)
       : model_(std::move(model)) {}
 
   /// @brief
   /// @param frame
   /// @return
-  std::vector<float> segment(const cv::Mat &frame) override {
+  std::vector<float> estimate(const cv::Mat &frame) override {
     std::vector<float> tensor = preprocessImage(frame);
-    std::vector<int64_t> shape = {1, 3, 640, 640};
+    std::vector<int64_t> shape = {1, 3, 768, 768};
     auto logits = model_->predict(tensor, shape);
     //
     return logits;
@@ -48,7 +48,7 @@ private:
     cv::Mat blob = cv::dnn::blobFromImage(
       frame,
       1.0,
-      cv::Size(640, 640),
+      cv::Size(768, 768),
       cv::Scalar(),
       true,
       false

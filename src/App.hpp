@@ -7,7 +7,7 @@
 //
 
 #include "FrameRender.hpp"
-#include "FrameSegmenter.hpp"
+#include "FrameDepthEstimator.hpp"
 #include "FrameSource.hpp"
 
 //
@@ -16,10 +16,10 @@
 class App final {
 public:
   App(std::unique_ptr<IFrameSource> frameSource,
-      std::unique_ptr<IFrameSegmenter> segmenter,
+      std::unique_ptr<IFrameDepthEstimator> estimator,
       std::unique_ptr<IFrameRender> render)
       : frameSource_(std::move(frameSource)),
-        segmenter_(std::move(segmenter)),
+        estimator_(std::move(estimator)),
         render_(std::move(render)) {}
   ~App() = default;
 
@@ -30,6 +30,6 @@ public:
 
 private:
   std::unique_ptr<IFrameSource> frameSource_;
-  std::unique_ptr<IFrameSegmenter> segmenter_;
+  std::unique_ptr<IFrameDepthEstimator> estimator_;
   std::unique_ptr<IFrameRender> render_;
 };

@@ -16,12 +16,12 @@
 
 /// @brief
 int App::exec() {
-  if (!frameSource_ || !segmenter_ || !render_) {
+  if (!frameSource_ || !estimator_ || !render_) {
     return EXIT_FAILURE;
   }
   cv::Mat frame{};
   if (frameSource_->getFrame(frame)) {
-    auto mask = segmenter_->segment(frame);
+    auto mask = estimator_->estimate(frame);
     render_->render(frame, mask);
     return EXIT_SUCCESS;
   }
