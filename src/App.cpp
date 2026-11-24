@@ -21,8 +21,8 @@ int App::exec() {
   }
   cv::Mat frame{};
   if (frameSource_->getFrame(frame)) {
-    auto mask = estimator_->estimate(frame);
-    render_->render(frame, mask);
+    auto depth = estimator_->estimate(frame);
+    render_->drawDepth(frame, depth);
     return EXIT_SUCCESS;
   }
   return EXIT_FAILURE;

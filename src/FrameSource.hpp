@@ -20,7 +20,7 @@ public:
 /// @brief
 class FrameSource final : public IFrameSource {
 public:
-  FrameSource(const std::string &framePath) : framePath_(framePath) {}
+  explicit FrameSource(const std::string &framePath) : framePath_(framePath) {}
 
   /// @brief
   /// @param frame
