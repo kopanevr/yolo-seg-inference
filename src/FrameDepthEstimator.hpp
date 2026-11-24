@@ -45,15 +45,19 @@ private:
   /// @param frame
   /// @return
   std::vector<float> preprocessFrame(const cv::Mat &frame) {
+    if (frame.empty()) {
+      return {};
+    }
     cv::Mat blob = cv::dnn::blobFromImage(
       frame,
-      1.0,
+      1.0 / 255.0,
       cv::Size(768, 768),
       cv::Scalar(),
       true,
       false
     );
-    return {blob.datastart, blob.dataend};
+    const float *begin = blob.ptr<float>();
+    return std::vector<float>(begin, begin + blob.total());
   }
 
 private:
